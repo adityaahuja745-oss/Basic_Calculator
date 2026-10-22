@@ -3,15 +3,12 @@
 
 #define PI 3.14159265358979323846
 
-// Global variables for simple operations
-int a, b;
-
 // Function Declarations
 int add(int a, int b);
 int subtract(int a, int b);
 int multiply(int a, int b);
-double divide(double a, double b); // Changed to double for precise division
-long long factorial(int a);        // Changed to long long to handle larger results
+double divide(double a, double b); 
+long long factorial(int a);        
 
 // Trigonometric Functions
 double sine(double degree);
@@ -22,9 +19,10 @@ double cosecant(double degree);
 double cotangent(double degree);
 
 int main() {
+    int a,b;//declaration moved here so a,b variables are not accessed in whole program thus increasing readability
     int select;
     
-    printf("--- ADVANCED CALCULATOR ---\n");
+        printf("--- ADVANCED CALCULATOR ---\n");
     printf("1. Add\n");
     printf("2. Subtract\n");
     printf("3. Multiply\n");
@@ -33,8 +31,12 @@ int main() {
     printf("6. Sine\n");
     printf("7. Cosine\n");
     printf("8. Tangent\n");
-    printf("Enter choice (1-8): ");
+    printf("9. Secant\n");
+    printf("10. Cosecant\n");
+    printf("11. Cotangent\n");
+    printf("Enter choice (1-11): ");
     scanf("%d", &select);
+;
 
     switch(select) {
         case 1:
@@ -45,6 +47,22 @@ int main() {
             printf("Addition is: %d\n", add(a, b));
             break;
             
+        case 2:
+            printf("Enter Number 1: ");
+            scanf("%d", &a);
+            printf("Enter Number 2: ");
+            scanf("%d", &b);
+            printf("Subtraction is: %d\n", subtract(a, b));
+            break;
+            
+        case 3:
+            printf("Enter Number 1: ");
+            scanf("%d", &a);
+            printf("Enter Number 2: ");
+            scanf("%d", &b);
+            printf("Multiplication is: %d\n", multiply(a, b));
+            break;
+        
         case 4: {
             double num1, num2;
             printf("Enter Dividend: ");
@@ -78,9 +96,30 @@ int main() {
             printf("Sine(%.2f) = %.4f\n", deg, sine(deg));
             break;
         }
+
+        case 7: {
+            double deg;
+            printf("Enter angle in degrees: ");
+            scanf("%lf", &deg);
+            printf("Cosine(%.2f) = %.4f\n", deg, cosine(deg));
+            break;
+        }
+
+        case 8: {
+            double deg;
+            printf("Enter angle in degrees: ");
+            scanf("%lf", &deg);
+            // Quick check to avoid tan(90) crash / huge values
+            if (fmod(deg - 90, 180) == 0) {
+                printf("Tangent is undefined for this angle.\n");
+            } else {
+                printf("Tangent(%.2f) = %.4f\n", deg, tangent(deg));
+            }
+            break;
+        }
         
         default:
-            printf("Invalid selection or feature not implemented yet in main menu.\n");
+            printf("Invalid selection!\n");
     }
     
     return 0;
@@ -104,14 +143,14 @@ double divide(double a, double b) {
 }
 
 // Factorial function using recursion
-long long factorial(int n) {
-    if (n == 0 || n == 1) {
-        return 1; // Base case fixed
+long long factorial(int a) {
+    if (a == 0 || a == 1) {
+        return 1; 
     }
-    return n * factorial(n - 1);
+    return a * factorial(a - 1);//changed n to a to increase readability
 }
 
-// Corrected Trigonometric Implementations (Converts Degrees to Radians inside)
+// Trigonometric Implementations
 double sine(double degree) {
     double radian = degree * (PI / 180.0);
     return sin(radian);
